@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "f": "prettier --write ./",
     "dev": "nodemon .",
-    "u": "git pull && npm i && npm run f"
+    "u": "git pull && bun install && bun run f"
   },
   "keywords": [],
   "author": "",

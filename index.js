@@ -10,5 +10,5 @@ app.use(function (req, res) {
 })
 
 app.listen(port, () =>
-  console.log(`Your app is listening a http://localhost:${port}`)
+  console.log(`Your app is listening to http://localhost:${port}`)
 )
