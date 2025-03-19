@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   # Trigger the workflow every time you push to the `main` branch
   push:
-    branches: [main]
+    branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
@@ -14,20 +14,25 @@ permissions:
   id-token: write
 
 jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+
+      - name: Upload files from /public as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: public
+
   deploy:
+    needs: upload
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-
-      - name: Copy files from /public to the root for GitHub Pages
-        run: |
-          mkdir -p public
-          cp -r public/* .
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
